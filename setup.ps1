@@ -26,7 +26,6 @@ executeScript "FileExplorerSettings.ps1";
 executeScript "SystemConfiguration.ps1";
 executeScript "DevTools.ps1";
 executeScript "RemoveDefaultApps.ps1";
-executeScript "HyperV.ps1";
 executeScript "Docker.ps1";
 executeScript "WSL.ps1";
 executeScript "Browsers.ps1";
