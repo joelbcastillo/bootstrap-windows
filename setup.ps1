@@ -4,7 +4,6 @@
 
 Disable-UAC
 
-
 # Get the base URI path from the ScriptToCall value
 $bstrappackage = "-bootstrapPackage"
 $helperUri = $Boxstarter['ScriptToCall']
@@ -14,7 +13,7 @@ $helperUri = $helperUri.TrimStart("'", " ")
 $helperUri = $helperUri.TrimEnd("'", " ")
 $helperUri = $helperUri.Substring(0, $helperUri.LastIndexOf("/"))
 $helperUri += "/scripts"
-write-host "helper script base URI is $helperUri"
+Write-Host "helper script base URI is $helperUri"
 
 function executeScript {
     Param ([string]$script)
@@ -35,3 +34,13 @@ executeScript "Browsers.ps1";
 Enable-UAC
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
+
+# Join Computer to Domain
+$computerName = Read-Host -Prompt 'Input your computer name'
+$domain = Read-Host -Prompt "Enter Domain to Join"
+$domainUser = Read-Host -Prompt "Enter the user with permission to join this computer to the domain (<domain>\<username>)"
+$ouPath = Read-Host -Prompt "Enter OU Path"
+
+Write-Host "The computer will be renamed to '$computerName' and will be joined to the $domain Domain (OU = $ouPath) using the account $domainUser"
+
+Add-Computer -NewName $computerName -DomainName $domain -Credential $domain\$domainUser -OUPath "$ouPath" -Force -Restart
